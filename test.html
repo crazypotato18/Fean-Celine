@@ -1,0 +1,522 @@
+<! DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuenaSuerte - Motorcycle Apparel</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Barlow:wght@300;400;500;;600;700&display=swap');
+    :root {
+        --primary: #e60023;
+        --secondary: #1a1a1a;
+        --accent: #ffc107;
+        --text: #f5f5f5;
+    }
+    
+    body {
+        font-family: 'Barlow', sans-serif;
+        background-color: #121212;
+        color: var(--text);
+        overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4 {
+        font-family: 'Teko', sans-serif;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    
+    .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .fade-in.appear {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .hero-bg {
+        background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23222'/%3E%3Cpath d='M400,100 C500,100 600,200 600,300 C600,400 500,500 400,500 C300,500 200,400 200,300 C200,200 300,100 400,100 Z' stroke='%23e60023' stroke-width='5' fill='none'/%3E%3Cpath d='M400,150 C475,150 550,225 550,300 C550,375 475,450 400,450 C325,450 250,375 250,300 C250,225 325,150 400,150 Z' stroke='%23ffc107' stroke-width='3' fill='none'/%3E%3Cpath d='M200,300 L250,300 M550,300 L600,300' stroke='%23e60023' stroke-width='5'/%3E%3Ccircle cx='400' cy='300' r='30' fill='%23333'/%3E%3Ccircle cx='400' cy='300' r='15' fill='%23e60023'/%3E%3C/svg%3E");
+        background-size: cover;
+        background-position: center;
+    }
+    
+    .btn-primary {
+        background-color: var(--primary);
+        color: white;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-primary:hover {
+        background-color: #ff1a3e;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(230, 0, 35, 0.3);
+    }
+    
+    .btn-primary::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: 0.5s;
+    }
+    
+    .btn-primary:hover::after {
+        left: 100%;
+    }
+    
+    .social-icon {
+        transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+        color: var(--primary);
+        transform: translateY(-5px);
+    }
+    
+    .tshirt-card {
+        transition: all 0.4s ease;
+        border: 1px solid #333;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .tshirt-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
+        transform: scaleX(0);
+        transition: transform 0.5s;
+        transform-origin: left;
+    }
+    
+    .tshirt-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        border-color: var(--primary);
+    }
+    
+    .tshirt-card:hover::before {
+        transform: scaleX(1);
+    }
+    
+    .tshirt-placeholder {
+        background: linear-gradient(45deg, #222, #333);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #555;
+        font-size: 3rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .tshirt-placeholder::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            to bottom right,
+            rgba(255,255,255,0) 0%,
+            rgba(255,255,255,0.1) 50%,
+            rgba(255,255,255,0) 100%
+        );
+        transform: rotate(45deg);
+        animation: shine 3s infinite;
+    }
+    
+    @keyframes shine {
+        0% { transform: translateX(-100%) rotate(45deg); }
+        100% { transform: translateX(100%) rotate(45deg); }
+    }
+    
+    .motorcycle-animation {
+        position: relative;
+        height: 100px;
+        width: 100%;
+        overflow: hidden;
+    }
+    
+    .motorcycle {
+        position: absolute;
+        bottom: 20px;
+        animation: ride 15s linear infinite;
+    }
+    
+    @keyframes ride {
+        0% { transform: translateX(-150px); }
+        100% { transform: translateX(calc(100vw + 150px)); }
+    }
+    
+    .wheel {
+        animation: rotate 1s linear infinite;
+        transform-origin: center;
+    }
+    
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    .pattern-bg {
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%23e60023' stroke-width='1' stroke-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    .logo-text {
+        text-shadow: 0 0 10px rgba(230, 0, 35, 0.5);
+    }
+</style>
+<!-- Hero Section -->
+<section class="hero-bg py-20">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center fade-in">
+            <h2 class="text-5xl md:text-6xl font-bold mb-6">PREMIUM<br><span class="text-[#e60023]">APPAREL</span></h2>
+            <p class="text-xl text-gray-300 mb-10">Authentic motorcycle culture meets modern streetwear.</p>
+            <a href="#shop" class="btn-primary px-10 py-4 text-lg font-bold rounded-md inline-block">EXPLORE COLLECTION</a>
+        </div>
+    </div>
+    
+    <!-- Animated motorcycle -->
+    <div class="motorcycle-animation mt-16">
+        <div class="motorcycle">
+            <svg width="150" height="80" viewBox="0 0 150 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Motorcycle body -->
+                <path d="M110,50 L90,30 L60,30 L40,50 L30,50 L20,35 L10,50 L110,50 Z" fill="#e60023"/>
+                <path d="M60,30 L70,20 L85,20 L90,30" stroke="#ffc107" stroke-width="2"/>
+                <path d="M70,50 L75,40 L85,40 L90,50" fill="#333"/>
+                
+                <!-- Wheels -->
+                <g class="wheel">
+                    <circle cx="30" cy="50" r="15" fill="#333" stroke="#555" stroke-width="2"/>
+                    <circle cx="30" cy="50" r="10" fill="#222" stroke="#444" stroke-width="1"/>
+                    <circle cx="30" cy="50" r="3" fill="#ffc107"/>
+                    <line x1="30" y1="40" x2="30" y2="60" stroke="#444" stroke-width="1"/>
+                    <line x1="20" y1="50" x2="40" y2="50" stroke="#444" stroke-width="1"/>
+                    <line x1="23" y1="43" x2="37" y2="57" stroke="#444" stroke-width="1"/>
+                    <line x1="23" y1="57" x2="37" y2="43" stroke="#444" stroke-width="1"/>
+                </g>
+                
+                <g class="wheel">
+                    <circle cx="110" cy="50" r="15" fill="#333" stroke="#555" stroke-width="2"/>
+                    <circle cx="110" cy="50" r="10" fill="#222" stroke="#444" stroke-width="1"/>
+                    <circle cx="110" cy="50" r="3" fill="#ffc107"/>
+                    <line x1="110" y1="40" x2="110" y2="60" stroke="#444" stroke-width="1"/>
+                    <line x1="100" y1="50" x2="120" y2="50" stroke="#444" stroke-width="1"/>
+                    <line x1="103" y1="43" x2="117" y2="57" stroke="#444" stroke-width="1"/>
+                    <line x1="103" y1="57" x2="117" y2="43" stroke="#444" stroke-width="1"/>
+                </g>
+                
+                <!-- Rider silhouette -->
+                <path d="M70,20 C73,15 78,15 80,20 C82,15 85,20 85,25 L80,35 L75,35 L70,25 Z" fill="#222"/>
+                <circle cx="77.5" cy="17.5" r="5" fill="#222"/>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="py-20 bg-[#1a1a1a]">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <div class="fade-in">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">THE <span class="text-[#e60023]">SPIRIT</span> OF THE ROAD</h2>
+                    <p class="text-gray-300 mb-6">BuenaSuerte apparel is designed for those who live for the journey, not just the destination.</p>
+                    <p class="text-gray-300 mb-6">Each piece is crafted with attention to detail, combining bold designs with premium quality materials that stand up to life on and off the road.</p>
+                    <div class="flex items-center">
+                        <div class="h-1 w-20 bg-[#e60023] mr-4"></div>
+                        <p class="text-[#ffc107] font-bold">RIDE WITH PURPOSE</p>
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <div class="relative">
+                        <svg class="w-full h-auto" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="400" height="400" fill="#222" rx="8" ry="8"/>
+                            <circle cx="200" cy="200" r="120" fill="none" stroke="#333" stroke-width="40"/>
+                            <circle cx="200" cy="200" r="80" fill="none" stroke="#e60023" stroke-width="8"/>
+                            <path d="M200,120 L200,200 L260,230" stroke="#ffc107" stroke-width="8" stroke-linecap="round" fill="none"/>
+                            <circle cx="200" cy="200" r="15" fill="#ffc107"/>
+                            <path d="M140,80 L260,80 L260,120 L140,120 Z" fill="#e60023"/>
+                            <path d="M140,280 L260,280 L260,320 L140,320 Z" fill="#e60023"/>
+                            <text x="200" y="100" font-family="Teko, sans-serif" font-size="24" fill="white" text-anchor="middle" dominant-baseline="middle">BUENASUERTE</text>
+                            <text x="200" y="300" font-family="Teko, sans-serif" font-size="24" fill="white" text-anchor="middle" dominant-baseline="middle">EST. 2020</text>
+                        </svg>
+                        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-black/30 to-transparent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- T-shirt Shop Section -->
+<section id="shop" class="py-24 bg-[#121212] pattern-bg">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16 fade-in">
+            <h2 class="text-5xl md:text-6xl font-bold mb-4">OUR <span class="text-[#e60023]">COLLECTION</span></h2>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto"></p>
+        </div>
+        
+        <div class="tshirt-card bg-[#222] rounded-lg overflow-hidden">
+    <a href="https://www.facebook.com/share/p/1Az8hrzgpu/" target="_blank">
+        <div class="tshirt-placeholder h-80">
+            <div class="text-center">
+                <i class="fas fa-tshirt text-5xl mb-4 text-[#e60023]"></i>
+                <p class="text-sm text-gray-400">Facebook Image Will Load Here</p>
+            </div>
+        </div>
+    </a>
+</div>
+    </div>
+</div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-2xl font-bold">Buena Suerte Honda Wave S Tee</h3>
+                        <span class="text-[#ffc107] text-xl font-bold">₱750</span>
+                    </div>
+                    <p class="text-gray-400 mb-5">Classic motorcycle design with vintage elements.</p>
+                    <button class="btn-primary w-full py-3 rounded-md font-bold">ADD TO CART</button>
+                </div>
+            </div>
+            
+            <div class="tshirt-card bg-[#222] rounded-lg overflow-hidden">
+                <div class="tshirt-placeholder h-80">
+                    <div class="text-center">
+                        <i class="fas fa-tshirt text-5xl mb-4 text-[#e60023]"></i>
+                        <p class="text-sm text-gray-400">Facebook Image Will Load Here</p>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-2xl font-bold">Speed Demon</h3>
+                        <span class="text-[#ffc107] text-xl font-bold">₱950</span>
+                    </div>
+                    <p class="text-gray-400 mb-5">Bold racing-inspired graphic with metallic accents.</p>
+                    <button class="btn-primary w-full py-3 rounded-md font-bold">ADD TO CART</button>
+                </div>
+            </div>
+            
+            <div class="tshirt-card bg-[#222] rounded-lg overflow-hidden">
+                <div class="tshirt-placeholder h-80">
+                    <div class="text-center">
+                        <i class="fas fa-tshirt text-5xl mb-4 text-[#e60023]"></i>
+                        <p class="text-sm text-gray-400">Facebook Image Will Load Here</p>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-2xl font-bold">Lucky Rider</h3>
+                        <span class="text-[#ffc107] text-xl font-bold">₱750</span>
+                    </div>
+                    <p class="text-gray-400 mb-5">Classic design with good luck symbols for the road.</p>
+                    <button class="btn-primary w-full py-3 rounded-md font-bold">ADD TO CART</button>
+                </div>
+            </div>
+        </div>
+        
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-24 bg-[#1a1a1a]">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-5xl md:text-6xl font-bold mb-4">FIND <span class="text-[#e60023]">US</span></h2>
+                <p class="text-xl text-gray-400">Visit our store or connect with us online.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 fade-in">
+                <div class="bg-[#222] p-8 rounded-lg shadow-lg border-t-4 border-[#e60023]">
+                    <h3 class="text-3xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-map-marker-alt text-[#e60023] mr-4"></i>
+                        Store Location
+                    </h3>
+                    <div class="mb-8">
+                        <p class="text-xl mb-2">BuenaSuerte Flagship Store</p>
+                        <p class="text-gray-400">Santa Maria</p>
+                        <p class="text-gray-400">Zamboanga City</p>
+                        <p class="text-gray-400">Zamboanga del Sur, Philippines</p>
+                    </div>
+                    <div class="mb-8">
+                        <p class="text-xl mb-2">Contact Number</p>
+                        <p class="text-[#ffc107] text-2xl font-bold">+63 995 977 8870</p>
+                    </div>
+                    <div>
+                        <p class="text-xl mb-2">Store Hours</p>
+                        <p class="text-gray-400">Monday - Saturday: 10:00 - 20:00</p>
+                        <p class="text-gray-400">Sunday: 11:00 - 18:00</p>
+                    </div>
+                </div>
+                
+                <div class="bg-[#222] p-8 rounded-lg shadow-lg border-t-4 border-[#e60023]">
+                    <h3 class="text-3xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-share-alt text-[#e60023] mr-4"></i>
+                        Connect With Us
+                    </h3>
+                    <p class="text-gray-400 mb-8">Follow us on social media for events, rides, and the latest merchandise drops.</p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <a href="#" class="flex flex-col items-center social-icon p-4 bg-[#333] rounded-lg">
+                            <i class="fab fa-facebook text-4xl mb-2"></i>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="#" class="flex flex-col items-center social-icon p-4 bg-[#333] rounded-lg">
+                            <i class="fab fa-instagram text-4xl mb-2"></i>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="#" class="flex flex-col items-center social-icon p-4 bg-[#333] rounded-lg">
+                            <i class="fab fa-tiktok text-4xl mb-2"></i>
+                            <span>TikTok</span>
+                        </a>
+                        <a href="#" class="flex flex-col items-center social-icon p-4 bg-[#333] rounded-lg">
+                            <i class="fab fa-youtube text-4xl mb-2"></i>
+                            <span>YouTube</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-black text-gray-400 py-10">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center mb-6 md:mb-0">
+                <svg class="w-8 h-8 mr-2" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" stroke="#e60023" stroke-width="5"/>
+                    <path d="M30,70 Q50,30 70,70" stroke="#ffc107" stroke-width="5" fill="none"/>
+                    <circle cx="30" cy="70" r="10" fill="#e60023"/>
+                    <circle cx="70" cy="70" r="10" fill="#e60023"/>
+                </svg>
+                <span class="text-white font-bold text-xl">BUENASUERTE</span>
+            </div>
+            <div class="flex space-x-6 mb-6 md:mb-0">
+                <a href="#" class="social-icon text-gray-400 hover:text-[#e60023]">
+                    <i class="fab fa-facebook text-xl"></i>
+                </a>
+                <a href="#" class="social-icon text-gray-400 hover:text-[#e60023]">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a href="#" class="social-icon text-gray-400 hover:text-[#e60023]">
+                    <i class="fab fa-tiktok text-xl"></i>
+                </a>
+                <a href="#" class="social-icon text-gray-400 hover:text-[#e60023]">
+                    <i class="fab fa-youtube text-xl"></i>
+                </a>
+            </div>
+            <div class="text-sm text-center md:text-right">
+                <p>Santa Maria, Zamboanga City</p>
+                <p>Zamboanga del Sur, Philippines</p>
+                <p>+63 995 977 8870</p>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-6 pt-6 text-center">
+            <p>&copy; 2023 BuenaSuerte Clothing. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Fade-in animation
+    document.addEventListener('DOMContentLoaded', function() {
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+    });
+    
+    // Facebook image loading simulation
+    document.getElementById('load-fb-images').addEventListener('click', function() {
+        const placeholders = document.querySelectorAll('.tshirt-placeholder');
+        
+        // Sample SVG t-shirt designs to replace placeholders
+        const tshirtDesigns = [
+            `<svg width="100%" height="100%" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                <rect width="300" height="300" fill="#333"/>
+                <path d="M150,50 L200,80 L200,250 L100,250 L100,80 Z" fill="#222"/>
+                <path d="M150,50 L100,80 L200,80 Z" fill="#222"/>
+                <circle cx="150" cy="150" r="50" fill="#e60023"/>
+                <path d="M120,150 Q150,100 180,150 Q150,200 120,150 Z" fill="#ffc107" stroke="#fff" stroke-width="2"/>
+                <text x="150" y="220" font-family="Arial" font-size="16" fill="white" text-anchor="middle">ROAD KING</text>
+            </svg>`,
+            
+            `<svg width="100%" height="100%" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                <rect width="300" height="300" fill="#333"/>
+                <path d="M150,50 L200,80 L200,250 L100,250 L100,80 Z" fill="#222"/>
+                <path d="M150,50 L100,80 L200,80 Z" fill="#222"/>
+                <path d="M150,100 L180,130 L150,160 L120,130 Z" fill="#e60023" stroke="#ffc107" stroke-width="2"/>
+                <path d="M150,170 C120,170 120,200 150,200 C180,200 180,170 150,170 Z" fill="#ffc107"/>
+                <text x="150" y="230" font-family="Arial" font-size="16" fill="white" text-anchor="middle">SPEED DEMON</text>
+            </svg>`,
+            
+            `<svg width="100%" height="100%" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                <rect width="300" height="300" fill="#333"/>
+                <path d="M150,50 L200,80 L200,250 L100,250 L100,80 Z" fill="#222"/>
+                <path d="M150,50 L100,80 L200,80 Z" fill="#222"/>
+                <circle cx="150" cy="140" r="60" fill="none" stroke="#ffc107" stroke-width="3"/>
+                <path d="M110,140 Q150,100 190,140 Q150,180 110,140 Z" fill="none" stroke="#e60023" stroke-width="4"/>
+                <text x="150" y="210" font-family="Arial" font-size="18" fill="white" text-anchor="middle">LUCKY RIDER</text>
+            </svg>`
+        ];
+        
+        // Replace each placeholder with a design
+        placeholders.forEach((placeholder, index) => {
+            placeholder.innerHTML = tshirtDesigns[index % tshirtDesigns.length];
+            placeholder.classList.add('loaded');
+        });
+        
+        // Change button text to indicate success
+        this.innerHTML = '<i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i><span>Images Loaded</span>';
+        this.disabled = true;
+        this.classList.add('bg-gray-700');
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+</script>
